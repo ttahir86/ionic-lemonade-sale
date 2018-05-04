@@ -1,17 +1,91 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
+  <ion-navbar color="">
+    <ion-title>Business Stand</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+ <div id="demo"></div>
+<!-- <script>
+  var x = document.getElementById("demo");
+
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+    }
+
+    function showPosition(position) {
+      x.innerHTML = "Latitude: " + position.coords.latitude +
+        "<br>Longitude: " + position.coords.longitude;
+    }
+</script> -->
+
+  <agm-map [latitude]="user_lat" [longitude]="user_lng" [zoom]="12" [mapDraggable]="true">
+    <agm-direction *ngIf="dir" [origin]="dir.origin" [destination]="dir.destination"></agm-direction>
+      <agm-marker *ngFor="let buis of businesses" [iconUrl]="map_icon[buis.type]" [latitude]="buis.lat" [longitude]="buis.lng" [label]="labelOptions">
+        <agm-info-window [disableAutoPan]="false">
+          <strong>{{buis.name}}</strong>
+        </agm-info-window>
+      </agm-marker>
+      <agm-marker [latitude]="user_lat" [longitude]="user_lng">
+        <agm-info-window>
+          <strong>Your Location</strong>
+        </agm-info-window>
+      </agm-marker>    
+  </agm-map>
+
+
+
+<ion-row>
+  <ion-col >
+    <button ion-button block full class="btn_buisness" (click)="goToSignUpPage()"  *ngIf="!isSignedIn">Start Your Business</button>
+  </ion-col>
+</ion-row>
+<ion-row>
+  <ion-col>
+    <button ion-button block full color="danger" (click)="goToSignUpPage()" *ngIf="!isSignedIn">Sign In</button>
+  </ion-col>
+</ion-row>
+
+<!-- <button ion-button full (click)="goToSignUpPage()" color="dark" *ngIf="isSignedIn">Open For Business</button> -->
+
+  <!-- <ion-fab bottom left>
+    <button ion-fab color="danger" id="main-fab" (click)="goToListView()">
+      <ion-icon ios="ios-apps" md="md-apps"></ion-icon>
+    </button>
+  </ion-fab> -->
+
+<!-- this fab is placed at top right -->
+  <ion-fab rop right>
+    <button ion-fab color="danger" id="main-fab" (click)="goToListView()">
+      <ion-icon ios="ios-apps" md="md-apps"></ion-icon>
+    </button>
+  </ion-fab>
+
+  
+
 </ion-content>
+
+<ion-fab bottom right *ngIf="isSignedIn">
+  <button ion-fab color="danger" id="main-fab">
+    <ion-icon ios="ios-menu" md="md-menu"></ion-icon>
+  </button>
+  <ion-fab-list side="left">
+    <button ion-fab color="danger" (click)="goToSignUpPage()">Open</button>
+    <button ion-fab color="danger" >Sign In</button>
+    <button ion-fab color="danger">Filter</button>
+  </ion-fab-list>
+</ion-fab>
+<!-- 
+<ion-fab bottom left>
+    <button ion-fab color="danger" (click)="goToSignUpPage()">Sign Up</button>
+</ion-fab>
+<ion-fab bottom center>
+  <button ion-fab color="danger">Sign In</button>
+</ion-fab>
+<ion-fab bottom right>
+  <button ion-fab color="danger">Filter</button>
+</ion-fab> -->

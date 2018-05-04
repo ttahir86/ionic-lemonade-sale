@@ -1,3 +1,34 @@
 page-home {
+    agm-map{
+        width: 100%;
+        height: 60%;
+        opacity: 0;
+        transition: opacity 150ms ease-in;
+        border: 5px solid red;
+    }
 
+    ion-content{
+        background-image: url("../assets/imgs/boy-cartoon.png"), url("../assets/imgs/girl-cartoon.png");
+        background-repeat: no-repeat;
+        background-size: 18%, 19%;
+        background-position: right bottom, left bottom;
+        
+    }
+
+    .fab{
+        width:  60px !important;
+        height: 60px !important;
+       
+    }
+
+    .toolbar-background {
+        background-color: #FFFF33;
+    }
+    
+    .btn_buisness{
+        background-color: #FFFF99;
+        color: black;
+    }
+  
+    
 }
